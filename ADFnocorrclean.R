@@ -21,9 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-library(urca)
-# order accounts for upto wich order of autocorrelation you want to account in the ADF test
-# q is the maximun lag that you are willing to reach when trying to correct the autocorrelation
+# Requires the library urca. In Windows or Mac go to the menu of RStudio and click on Tools and after on Install Packages... 
+# Then, in "Packages (separate multiple with space or comma):" write "urca" (without the quotes) and RStudio will install the urca package.
+# Just in case, go to the low-right side panel of the screen of RStudio and click in the Packages window. Then, search there 
+# the urca package and verify that it is checkmarked.
+# To load your data go the menu of RStudio and click on File and after on Import Dataset.
+# Very probably your data will be imported as data.frame. Imagine that you called mydata the data.frame that you imported in R.
+# To make it a matrix you only need to write the following command in the R console:
+mydata<-as.matrix(mydata)
+
+# Explanation of the arguments:
+# x is the database with the series which you want to perform the unit root tests. It should contain only one series.
+# type, lags, selectlags are the arguments of the ur.df function of the urca R package (you can see the documentation of this package if you need more information).
+# order and order.by are arguments of the bgtest R function. Here, order accounts for upto wich order of autocorrelation you want to account in the ADF test.
+# q is the maximun lag that you are willing to reach when trying to correct the autocorrelation. You should set q larger that lags.
 # pvalu is the significance level at which you want to perform the Breush Godfrey test
 adfnocorr<-function(x, type = "drift", lags = 7, selectlags = "AIC", order =5, order.by = NULL, q = 10, pvalu = 0.01) {
   breush<-c()
